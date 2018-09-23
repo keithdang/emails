@@ -3,15 +3,15 @@ const helper = sendgrid.mail;
 const keys = require("../config/keys");
 const { SENDGRID, AWS_EMAIL } = require("./types");
 class Mailer extends helper.Mail {
-  constructor({ body_html, to, from }, thirdParty) {
+  constructor(email, thirdParty) {
     super();
     this.strThirdParty = thirdParty;
     this.isSendGrid = thirdParty === "sendgrid";
     this.emailApi = this.thirdPartyKey();
-    this.from_email = this.emailFrom(from);
-    this.subject = "Hello";
-    this.body = this.formatBody(body_html);
-    this.recipients = this.formatAddresses(to);
+    this.from_email = this.emailFrom(email.from);
+    this.subject = email.subject;
+    this.body = this.formatBody(email.body_html);
+    this.recipients = this.formatAddresses(email.to);
     if (thirdParty === SENDGRID) {
       this.addContent(this.body);
       this.addRecipients();
@@ -30,7 +30,8 @@ class Mailer extends helper.Mail {
   emailFrom(from) {
     switch (this.strThirdParty) {
       case SENDGRID:
-        return new helper.Email("no-reply@emaily.com");
+        return new helper.Email(from);
+      // return new helper.Email("no-reply@emaily.com");
       case AWS_EMAIL:
         return;
       default:

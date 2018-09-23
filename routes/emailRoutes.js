@@ -9,7 +9,7 @@ module.exports = app => {
   app.get("/", function(req, res) {
     res.render("index");
   });
-  app.post("/emails/add", async (req, res) => {
+  app.post("/send-email", async (req, res) => {
     const blacklist = await Blacklist.find({
       email: req.body.from
     });
@@ -23,6 +23,7 @@ module.exports = app => {
         const email = {
           to: req.body.to.split(",").map(email => ({ email: email.trim() })),
           from: req.body.from,
+          subject: req.body.subject,
           body_text: req.body.body_text,
           body_html: basicTemplate(req.body.body_text)
         };

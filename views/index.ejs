@@ -9,7 +9,7 @@
                 <% }) %>
         </ul>
         <% } %>
-            <form method="POST" action="/emails/add">
+            <form method="POST" action="/send-email">
                 <label>From</label>
                 <br>
                 <input type="text" name="from">
@@ -18,6 +18,10 @@
                 <br>
                 <input type="text" name="to">
                 <br>
+                <label>Subject</label>
+                <br>
+                <input type="text" name="subject">
+                <br>
                 <label>Body</label>
                 <br>
                 <input type="text" name="body_text">
@@ -25,7 +29,7 @@
                 <input type="submit" value="Submit">
             </form>
 
-            <form method="POST" action="/bounce/add">
+            <form method="POST" action="/bounced-email">
                 <label>BOUNCE</label>
                 <br>
                 <input type="text" name="email">
