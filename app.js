@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const keys = require("./config/keys");
 const expressValidator = require("express-validator");
-require("./models/Survey");
+
 require("./models/Blacklist");
 mongoose.connect(keys.mongoURI);
 const app = express();
@@ -37,12 +37,7 @@ app.use(
   })
 );
 
-app.get("/", function(req, res) {
-  res.render("index", {
-    title: "Customers"
-  });
-});
-
-require("./routes/surveyRoutes")(app);
+require("./routes/emailRoutes")(app);
 require("./routes/blacklistRoutes")(app);
+
 app.listen(3000);

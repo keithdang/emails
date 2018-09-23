@@ -11,6 +11,9 @@ function validateEmails(emails) {
   return;
 }
 function checkErrors(req) {
+  req.checkBody("to", "To is required").notEmpty();
+  req.checkBody("from", "From is required").notEmpty();
+  req.checkBody("body_text", "Body is required").notEmpty();
   var toFrom = "";
   if (req.body.from.length > 0) {
     toFrom += req.body.from + ",";
