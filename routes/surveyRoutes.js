@@ -28,14 +28,14 @@ module.exports = app => {
         var to = req.body.to;
         var from = req.body.from;
         var body_text = req.body.body_text;
-        var body_html = "Hello";
-        const survey = new Survey({
+        var body_html = surveyTemplate(to, from, body_text);
+        const survey = {
           to: to.split(",").map(email => ({ email: email.trim() })),
-          from,
-          body_text,
-          body_html
-        });
-        const mailer = new Mailer(survey, surveyTemplate(survey), SENDGRID);
+          from: from,
+          body_text: body_text,
+          body_html: body_html
+        };
+        const mailer = new Mailer(survey, SENDGRID);
         try {
           await mailer.send();
           console.log("success:", survey);
