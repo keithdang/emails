@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Survey = mongoose.model("surveys");
 const Blacklist = mongoose.model("emails");
 const Mailer = require("../services/Mailer");
-const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
+const basicTemplate = require("../services/emailTemplates/basicTemplate");
 const { SENDGRID, AWS_EMAIL } = require("../services/types");
 const { validateEmails, checkErrors } = require("../services/validateEmails");
 
@@ -28,7 +28,7 @@ module.exports = app => {
         var to = req.body.to;
         var from = req.body.from;
         var body_text = req.body.body_text;
-        var body_html = surveyTemplate(to, from, body_text);
+        var body_html = basicTemplate(to, from, body_text);
         const survey = {
           to: to.split(",").map(email => ({ email: email.trim() })),
           from: from,
