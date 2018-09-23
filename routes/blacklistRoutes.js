@@ -9,6 +9,7 @@ module.exports = app => {
     });
     try {
       await blacklist.save();
+      res.redirect("/");
     } catch (err) {
       console.log("err:", err);
     }

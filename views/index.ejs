@@ -1,39 +1,41 @@
 <% include partials/header %>
-    <h1>Send Emails</h1>
-    <% if(errors !=undefined){ %>
-        <ul>
-            <% errors.forEach(function(error){ %>
-                <li>
-                    <%= error.msg %>
-                </li>
-                <% }) %>
-        </ul>
-        <% } %>
-            <form method="POST" action="/send-email">
-                <label>From</label>
-                <br>
-                <input type="text" name="from">
-                <br>
-                <label>To</label>
-                <br>
-                <input type="text" name="to">
-                <br>
-                <label>Subject</label>
-                <br>
-                <input type="text" name="subject">
-                <br>
-                <label>Body</label>
-                <br>
-                <input type="text" name="body_text">
-                <br>
-                <input type="submit" value="Submit">
-            </form>
+    <div style="padding-left: 20%;padding-right: 20%;">
+        <h1>Send Emails</h1>
+        <% if(errors !=undefined){ %>
+            <ul>
+                <% errors.forEach(function(error){ %>
+                    <li>
+                        <%= error.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
+                <form method="POST" action="/send-email">
+                    <label>From</label>
+                    <br>
+                    <input type="text" name="from">
+                    <br>
+                    <label>To</label>
+                    <br>
+                    <input type="text" name="to">
+                    <br>
+                    <label>Subject</label>
+                    <br>
+                    <input type="text" name="subject">
+                    <br>
+                    <label>Body</label>
+                    <br>
+                    <input type="text" name="body_text">
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
 
-            <form method="POST" action="/bounced-email">
-                <label>BOUNCE</label>
-                <br>
-                <input type="text" name="email">
-                <br>
-                <input type="submit" value="Bounce">
-            </form>
-            <% include partials/footer %>
+                <form method="POST" action="/bounced-email">
+                    <label style="font-size: 25px;">Bounce Emails</label>
+                    <br>
+                    <input type="text" name="email">
+                    <br>
+                    <input type="submit" value="Bounce">
+                </form>
+    </div>
+    <% include partials/footer %>
