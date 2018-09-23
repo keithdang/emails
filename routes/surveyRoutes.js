@@ -4,13 +4,9 @@ const Blacklist = mongoose.model("emails");
 const Mailer = require("../services/Mailer");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 const { SENDGRID, AWS_EMAIL } = require("../services/types");
+const { validateEmails, checkErrors } = require("../services/validateEmails");
+
 module.exports = app => {
-  // app.get("/api/surveys", async (req, res) => {
-  //   const survey = await Survey.find(function(err, survey) {
-  //     console.log("surveys:", survey);
-  //     res.send(survey);
-  //   });
-  // });
   app.post("/surveys/add", async (req, res) => {
     const blacklist = await Blacklist.find({
       email: req.body.from
@@ -20,12 +16,15 @@ module.exports = app => {
       req.checkBody("to", "To is required").notEmpty();
       req.checkBody("from", "From is required").notEmpty();
       req.checkBody("body_text", "Body is required").notEmpty();
-      var errors = req.validationErrors();
+      var errors = checkErrors(req);
       if (errors) {
         res.render("index", {
           errors: errors
         });
       } else {
+        res.render("index", {
+          errors: null
+        });
         var to = req.body.to;
         var from = req.body.from;
         var body_text = req.body.body_text;
@@ -44,7 +43,7 @@ module.exports = app => {
       res.render("index", {
         errors: [
           {
-            msg: "That email has been banned"
+            msg: req.body.from + " has been banned"
           }
         ]
       });
