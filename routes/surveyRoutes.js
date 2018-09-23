@@ -36,8 +36,12 @@ module.exports = app => {
           body_html
         });
         const mailer = new Mailer(survey, surveyTemplate(survey), SENDGRID);
-        mailer.send();
-        console.log("success:", survey);
+        try {
+          await mailer.send();
+          console.log("success:", survey);
+        } catch (err) {
+          res.status(422).send(err);
+        }
       }
     } else {
       res.render("index", {
