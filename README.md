@@ -2,6 +2,7 @@ Email Server
 ===
 * Send emails to multiple addresses using sendgrid API<br />
 * Blacklist components allows adding emails you don't want to have the ability to send<br />
+* Express validator for checking text inputs<br />
 * MongoDB for database to check upon banned users<br />
 * Node JS & express for handling http requests<br />
 Assumptions
