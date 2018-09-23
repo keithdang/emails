@@ -1,0 +1,35 @@
+<% include partials/header %>
+    <h1>Send Emails</h1>
+    <% if(errors !=undefined){ %>
+        <ul>
+            <% errors.forEach(function(error){ %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+            <form method="POST" action="/surveys/add">
+                <label>From</label>
+                <br>
+                <input type="text" name="from">
+                <br>
+                <label>To</label>
+                <br>
+                <input type="text" name="to">
+                <br>
+                <label>Body</label>
+                <br>
+                <input type="text" name="body_text">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+
+            <form method="POST" action="/bounce/add">
+                <label>BOUNCE</label>
+                <br>
+                <input type="text" name="email">
+                <br>
+                <input type="submit" value="Bounce">
+            </form>
+            <% include partials/footer %>
